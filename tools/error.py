@@ -1,3 +1,6 @@
+import warnings
+
+
 class ToolsError(Exception):
     """
     Base class for all custom exceptions
@@ -17,3 +20,7 @@ class RuntimeConfigError(ToolsError):
     Raised when passed parameters do not makes sense
     or conflict with something.
     """
+
+
+def warn(msg):
+    warnings.warn(msg, category=GrabDeprecationWarning, stacklevel=3)
