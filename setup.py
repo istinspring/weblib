@@ -10,7 +10,7 @@ setup(
     description = 'Set of tools for web scraping projects',
     author = 'Gregory Petukhov',
     author_email = 'lorien@lorien.name',
-    install_requires = [],
+    install_requires = ['pytils'],
     packages = find_packages(),
     license = "MIT",
     classifiers = (
