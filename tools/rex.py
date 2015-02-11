@@ -1,8 +1,8 @@
 import re
 
 from tools.error import DataNotFound
-from grab.tools.text import normalize_space
-from grab.tools.html import decode_entities
+from tools.text import normalize_space
+from tools.html import decode_entities
 from tools.py3k_support import *
 
 REGEXP_CACHE = {}
