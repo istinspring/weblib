@@ -2,7 +2,7 @@
 Tools
 =====
 
-.. image:: https://travis-ci.org/lorien/tools.png
+.. image:: https://travis-ci.org/lorien/tools.png?branch=master
     :target: https://travis-ci.org/lorien/tools
 
 .. image:: https://coveralls.io/repos/lorien/tools/badge.svg
