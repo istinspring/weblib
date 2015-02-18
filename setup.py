@@ -2,15 +2,15 @@ from setuptools import setup, find_packages
 import os
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
-version = __import__('tools').__version__
+
 
 setup(
     name = 'tools',
-    version = version,
+    version = '0.1.1',
     description = 'Set of tools for web scraping projects',
     author = 'Gregory Petukhov',
     author_email = 'lorien@lorien.name',
-    install_requires = ['pytils'],
+    install_requires = ['pytils', 'six', 'lxml'],
     packages = find_packages(),
     license = "MIT",
     classifiers = (

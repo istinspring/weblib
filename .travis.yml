@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+
+install:
+  - pip install -r requirements_dev.txt
+  - python setup.py develop
+
+script:
+  - coverage run --source=tools -m runscript.cli test
+
+after_success:
+  - coveralls
