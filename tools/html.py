@@ -10,6 +10,7 @@ except ImportError:
 import logging
 
 from tools.text import normalize_space as normalize_space_func
+import six
 #from tools.py3k_support import *
 
 RE_TAG = re.compile(r'<[^>]+>')
@@ -49,7 +50,7 @@ def decode_entities(html):
         entity = match.group(1)
         name = entity[1:-1]
         if name in name2codepoint:
-            return unichr(name2codepoint[name])
+            return six.unichr(name2codepoint[name])
         else:
             return entity
 
@@ -57,7 +58,7 @@ def decode_entities(html):
         entity = match.group(1)
         num = entity[2:-1]
         try:
-            return unichr(int(num))
+            return six.unichr(int(num))
         except ValueError:
             return entity
 
@@ -65,7 +66,7 @@ def decode_entities(html):
         entity = match.group(1)
         code = entity[3:-1]
         try:
-            return unichr(int(code, 16))
+            return six.unichr(int(code, 16))
         except ValueError:
             return entity
 
