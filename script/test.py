@@ -13,6 +13,7 @@ TEST_LIST = (
     'test.content',
     'test.http',
     'test.russian',
+    'test.export_mysql_dumper',
 )
 
 
