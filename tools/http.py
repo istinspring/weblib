@@ -88,7 +88,7 @@ def encode_cookies(items, join=True, charset='utf-8'):
         return tokens
 
 
-def normalize_http_values(items, charset='utf-8'):
+def normalize_http_values(items, charset='utf-8', ignore_classes=None):
     """
     Accept sequence of (key, value) paris or dict and convert each
     value into bytestring.
@@ -97,6 +97,10 @@ def normalize_http_values(items, charset='utf-8'):
     (or utf-8, if no requests were performed)
 
     None is converted into empty string. 
+
+    If `ignore_classes` is not None and the value is instance of
+    any classes from the `ignore_classes` then the value is not
+    processed and returned as-is.
     """
 
     if isinstance(items, dict):
@@ -105,15 +109,15 @@ def normalize_http_values(items, charset='utf-8'):
     def process(item):
         key, value = item
 
-        # normalize value
-        if isinstance(value, unicode):
+        if ignore_classes and isinstance(value, ignore_classes):
+            pass
+        elif isinstance(value, unicode):
             value = normalize_unicode(value, charset=charset)
         elif value is None:
             value = ''
         else:
             value = str(value)
 
-        # normalize key
         if isinstance(key, unicode):
             key = normalize_unicode(key, charset=charset)
 

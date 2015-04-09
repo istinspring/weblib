@@ -1,4 +1,5 @@
 import re
+import six
 
 from tools.py3k_support import *
 
@@ -61,7 +62,10 @@ def decode_dict(values, encoding='utf-8'):
 
 def decode_pairs(pairs, encoding='utf-8'):
     def decode(value):
-        return smart_unicode(value, encoding)
+        if isinstance(value, six.string_types):
+            return smart_unicode(value, encoding)
+        else:
+            return value
 
     return [(decode(pair[0]), decode(pair[1])) for pair in pairs]
 
