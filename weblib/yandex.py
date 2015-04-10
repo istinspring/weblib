@@ -3,7 +3,7 @@ try:
     from urllib import quote #, unquote_plus
 except ImportError:
     from urllib.parse import quote #, unquote_plus
-from weblib.lxml_weblib import get_node_text
+from weblib.etree import get_node_text
 import logging
 
 from weblib.encoding import smart_str

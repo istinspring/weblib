@@ -33,7 +33,7 @@ import re
 import base64
 
 from weblib.html import decode_entities
-from weblib.lxml_weblib import get_node_text, drop_node, render_html
+from weblib.etree import get_node_text, drop_node, render_html
 from weblib.http import urlencode
 from weblib.encoding import smart_str
 from weblib.text import find_number

@@ -1,5 +1,5 @@
 import warnings
-from funcweblib import wraps
+from functools import wraps
 import logging
 #from weblib.error import RuntimeConfigError
 
