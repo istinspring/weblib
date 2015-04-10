@@ -2,7 +2,7 @@
 from unittest import TestCase
 from lxml.html import fromstring
 
-from tools.content import find_content_blocks
+from weblib.content import find_content_blocks
 
 class ContentTestCase(TestCase):
     def test_find_content_blocks(self):

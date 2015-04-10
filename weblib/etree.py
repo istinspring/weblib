@@ -3,10 +3,10 @@ Functions to process content of lxml nodes.
 """
 import re
 
-from tools.text import normalize_space as normalize_space_func, find_number
-from tools.encoding import smart_str, smart_unicode
+from weblib.text import normalize_space as normalize_space_func, find_number
+from weblib.encoding import smart_str, smart_unicode
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
 RE_TAG_START = re.compile(r'<[a-z]')
 
@@ -182,7 +182,7 @@ def clean_html(html, safe_attrs=('src', 'href'),
     # Convert HTML to Unicode
     html = render_html(parse_html(html, encoding=input_encoding), make_unicode=True)
 
-    # Strip some shit with default lxml tools
+    # Strip some shit with default lxml weblib
     cleaner = Cleaner(page_structure=True, **kwargs)
     html = cleaner.clean_html(html)
 

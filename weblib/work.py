@@ -6,7 +6,7 @@ except ImportError:
     from queue import Queue, Empty
 import logging
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
 STOP = object()
 

@@ -1,6 +1,6 @@
 import os
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
 SCALE = {'kB': 1024.0, 'mB': 1024.0 * 1024.0,
          'KB': 1024.0, 'MB': 1024.0 * 1024.0}

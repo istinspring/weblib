@@ -8,12 +8,12 @@ from datetime import datetime
 import feedparser
 from lxml.html.clean import clean_html
 
-from grab.tools.lxml_tools import truncate_html
-from grab.tools.html import strip_tags
-from grab.tools.text import remove_bom
-from tools.error import DataNotFound, RuntimeConfigError
+from weblib.lxml_weblib import truncate_html
+from weblib.html import strip_tags
+from weblib.text import remove_bom
+from weblib.error import DataNotFound, RuntimeConfigError
 
-log = logging.getLogger('grab.tools.feed')
+log = logging.getLogger('weblib.feed')
 
 
 def parse_entry_date(entry):

@@ -4,7 +4,7 @@ import warnings
 class ToolsError(Exception):
     """
     Base class for all custom exceptions
-    defined in tools package.
+    defined in weblib package.
     """
 
 

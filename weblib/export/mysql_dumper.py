@@ -1,7 +1,7 @@
 import csv
 import six
 
-from tools.export.csv_dumper import CSVDumper
+from weblib.export.csv_dumper import CSVDumper
 
 
 class MysqlCSVDumper(CSVDumper):

@@ -1,7 +1,7 @@
 # coding: utf-8
 from unittest import TestCase
 
-from tools.russian import slugify, parse_ru_month
+from weblib.russian import slugify, parse_ru_month
 
 class ToolsRussianTestCase(TestCase):
     def test_parse_ru_month(self):

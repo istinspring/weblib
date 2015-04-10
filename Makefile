@@ -1,15 +1,15 @@
 flake:
-	flake8 tools test
+	flake8 weblib test
 
 flake_verbose:
-	flake8 tools test --show-pep8
+	flake8 weblib test --show-pep8
 
 test:
 	run test
 
 coverage:
 	coverage erase
-	coverage run --source=tools -m runscript.cli test
+	coverage run --source=weblib -m runscript.cli test
 	coverage report -m
 
 clean:

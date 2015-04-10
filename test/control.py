@@ -2,7 +2,7 @@
 from unittest import TestCase
 import time
 
-from tools.control import sleep, repeat
+from weblib.control import sleep, repeat
 
 class ControlTestCase(TestCase):
     def test_sleep(self):

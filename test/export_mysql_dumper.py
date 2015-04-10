@@ -2,8 +2,8 @@
 from unittest import TestCase
 import six
 from codecs import open
-from tools.encoding import make_str
-from tools.export.mysql_dumper import MysqlCSVDumper, build_import_sql
+from weblib.encoding import make_str
+from weblib.export.mysql_dumper import MysqlCSVDumper, build_import_sql
 from tempfile import mkstemp
 import os
 

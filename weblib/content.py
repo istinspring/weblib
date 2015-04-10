@@ -1,7 +1,7 @@
 import re
 from copy import deepcopy
 
-from tools.text import normalize_space, find_number
+from weblib.text import normalize_space, find_number
 
 def find_content_blocks(tree, min_length=None):
     """

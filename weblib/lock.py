@@ -7,7 +7,7 @@ import sys
 import logging
 import os
 
-logger = logging.getLogger('grab.tools.lock')
+logger = logging.getLogger('weblib.lock')
 fh = None
 
 

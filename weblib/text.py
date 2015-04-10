@@ -3,8 +3,8 @@ Text parsing and processing utilities.
 """
 import re
 
-from tools.error import RuntimeConfigError, DataNotFound
-#from tools.py3k_support import *
+from weblib.error import RuntimeConfigError, DataNotFound
+#from weblib.py3k_support import *
 
 RE_NUMBER = re.compile(r'\d+')
 RE_NUMBER_WITH_SPACES = re.compile(r'\d[\s\d]*', re.U)

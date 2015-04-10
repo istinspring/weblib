@@ -32,11 +32,11 @@ import logging
 import re
 import base64
 
-from grab.tools.html import decode_entities
-from grab.tools.lxml_tools import get_node_text, drop_node, render_html
-from grab.tools.http import urlencode
-from grab.tools.encoding import smart_str
-from grab.tools.text import find_number
+from weblib.html import decode_entities
+from weblib.lxml_weblib import get_node_text, drop_node, render_html
+from weblib.http import urlencode
+from weblib.encoding import smart_str
+from weblib.text import find_number
 
 
 class CaptchaFound(Exception):

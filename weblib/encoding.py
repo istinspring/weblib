@@ -1,7 +1,7 @@
 import re
 import six
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
 RE_SPECIAL_ENTITY = re.compile(b'&#(1[2-6][0-9]);')
 

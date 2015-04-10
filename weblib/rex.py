@@ -1,9 +1,9 @@
 import re
 
-from tools.error import DataNotFound
-from tools.text import normalize_space
-from tools.html import decode_entities
-from tools.py3k_support import *
+from weblib.error import DataNotFound
+from weblib.text import normalize_space
+from weblib.html import decode_entities
+from weblib.py3k_support import *
 
 REGEXP_CACHE = {}
 NULL = object()

@@ -1,6 +1,6 @@
 import csv
 import six
-from tools.encoding import make_str, make_unicode
+from weblib.encoding import make_str, make_unicode
 
 
 class CSVDumper(object):

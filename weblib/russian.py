@@ -2,7 +2,7 @@
 from pytils.translit import translify
 import re
 
-from tools.encoding import smart_unicode
+from weblib.encoding import smart_unicode
 
 
 class InvalidMonthName(Exception):

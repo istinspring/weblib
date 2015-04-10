@@ -1,7 +1,7 @@
 import warnings
-from functools import wraps
+from funcweblib import wraps
 import logging
-#from tools.error import RuntimeConfigError
+#from weblib.error import RuntimeConfigError
 
 
 # from https://github.com/scrapy/scrapy/blob/master/scrapy/utils/decorator.py

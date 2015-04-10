@@ -9,10 +9,10 @@ except ImportError:
 import re
 import logging
 
-from tools.error import RuntimeConfigError
-from tools.encoding import smart_str, smart_unicode, decode_pairs
+from weblib.error import RuntimeConfigError
+from weblib.encoding import smart_str, smart_unicode, decode_pairs
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
 # I do not know, what the hell is going on, but sometimes
 # when IDN url should be requested grab fails with error
@@ -28,14 +28,14 @@ from tools.py3k_support import *
 # is need to be imported then that can't be done due to the unknown magical influence
 import encodings.punycode
 
-logger = logging.getLogger('grab.tools.http')
+logger = logging.getLogger('weblib.http')
 RE_NON_ASCII = re.compile(r'[^-.a-zA-Z0-9]')
 RE_NOT_SAFE_URL = re.compile(r'[^-.:/?&;#a-zA-Z0-9]')
 
 
 def urlencode(*args, **kwargs):
-    logger.debug('Method grab.tools.http.urlencode is deprecated. '
-                 'Please use grab.tools.http.smart_urlencode')
+    logger.debug('Method weblib.http.urlencode is deprecated. '
+                 'Please use weblib.http.smart_urlencode')
     return smart_urlencode(*args, **kwargs)
 
 

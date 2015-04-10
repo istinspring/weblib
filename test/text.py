@@ -1,8 +1,8 @@
 # coding: utf-8
 from unittest import TestCase
 
-from tools.error import DataNotFound
-from tools.text import find_number, drop_space, normalize_space
+from weblib.error import DataNotFound
+from weblib.text import find_number, drop_space, normalize_space
 
 class TextTestCase(TestCase):
 

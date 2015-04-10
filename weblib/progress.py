@@ -1,7 +1,7 @@
 import sys 
 import logging
 
-logger = logging.getLogger('grab.tools.progress')
+logger = logging.getLogger('weblib.progress')
 
 
 class Progress(object):

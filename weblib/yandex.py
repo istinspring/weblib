@@ -3,10 +3,10 @@ try:
     from urllib import quote #, unquote_plus
 except ImportError:
     from urllib.parse import quote #, unquote_plus
-from grab.tools.lxml_tools import get_node_text
+from weblib.lxml_weblib import get_node_text
 import logging
 
-from grab.tools.encoding import smart_str
+from weblib.encoding import smart_str
 
 
 class CaptchaError(Exception):

@@ -2,9 +2,9 @@ import time
 import logging
 from random import randint
 
-from tools.py3k_support import *
+from weblib.py3k_support import *
 
-logger = logging.getLogger('grab.tools.control')
+logger = logging.getLogger('weblib.control')
 
 
 def sleep(lower_limit, upper_limit):

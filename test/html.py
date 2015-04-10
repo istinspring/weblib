@@ -2,7 +2,7 @@
 from unittest import TestCase
 import six
 
-from tools.html import find_refresh_url, decode_entities
+from weblib.html import find_refresh_url, decode_entities
 
 
 class HtmlTestCase(TestCase):

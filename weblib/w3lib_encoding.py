@@ -179,7 +179,7 @@ def html_to_unicode(content_type_header, html_body_str,
             #html_body_str = html_body_str[len(bom):]
         elif enc == 'utf-16' or enc == 'utf-32':
             # read endianness from BOM, or default to big endian 
-            # tools.ietf.org/html/rfc2781 section 4.3
+            # weblib.ietf.org/html/rfc2781 section 4.3
             if bom_enc is not None and bom_enc.startswith(enc):
                 enc = bom_enc
                 detected_bom = bom

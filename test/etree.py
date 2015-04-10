@@ -2,7 +2,7 @@
 from unittest import TestCase
 from lxml.html import fromstring
 
-from tools.etree import (get_node_text, find_node_number, render_html,
+from weblib.etree import (get_node_text, find_node_number, render_html,
                          drop_node, replace_node_with_text)
 
 HTML = u"""

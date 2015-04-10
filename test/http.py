@@ -1,7 +1,7 @@
 # coding: utf-8
 from unittest import TestCase
 
-from tools.http import normalize_url
+from weblib.http import normalize_url
 
 class HttpTestCase(TestCase):
     def test_idn(self):
