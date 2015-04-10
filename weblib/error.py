@@ -1,21 +1,21 @@
 import warnings
 
 
-class ToolsError(Exception):
+class WeblibError(Exception):
     """
     Base class for all custom exceptions
     defined in weblib package.
     """
 
 
-class DataNotFound(ToolsError, IndexError):
+class DataNotFound(WeblibError, IndexError):
     """
     Raised when it is not possible to find requested
     data.
     """
 
 
-class RuntimeConfigError(ToolsError):
+class RuntimeConfigError(WeblibError):
     """
     Raised when passed parameters do not makes sense
     or conflict with something.
