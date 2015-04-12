@@ -1,4 +1,3 @@
-from grab import Grab
 import logging
 import os
 
@@ -63,6 +62,8 @@ def ping(name, url, grab, thread_number=10):
 
 if __name__ == '__main__':
     #logging.basicConfig(level=logging.DEBUG)
+    from grab import Grab
+
     g = Grab(timeout=15)
     g.setup_proxylist('/web/proxy.txt', 'http', auto_change=True) 
     items = ping('seobeginner.ru', 'http://feeds2.feedburner.com/seobeginner',

@@ -1,0 +1,6 @@
+pytils
+lxml
+six
+feedparser
+selenium
+pytils
