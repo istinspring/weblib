@@ -7,6 +7,7 @@ Welcome to weblib's documentation!
 ==================================
 
 Weblib provides tools to solve typical tasks in web scraping:
+
 * processing HTML
 * handling text encodings
 * controling repeating and parallel tasks
