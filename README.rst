@@ -20,16 +20,28 @@ Weblib
     :target: https://docs.webliblib.org/en/latest/
 
 
-Set of tools to solve some repeatable tasks arasing in the process
-of web scraping (TODO: does that makes sense in English? :).
+Weblib provides tools to solve typical tasks in web scraping:
+
+* processing HTML
+* handling text encodings
+* controling repeating and parallel tasks
+* parsing RSS/ATOM feeds
+* preparing data for HTTP requests
+* working with DOM tree
+* working with text and numeral data
+* list of common user agents
+* cross-platform file locking
+* operations with files and directories
 
 
 Installation
 ============
 
-Run::
+Run:
 
-    pip install weblib
+.. code:: shell
+
+    pip install -U weblib
 
 
 Dependencies
