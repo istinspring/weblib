@@ -17,7 +17,7 @@ Weblib
    :target: https://landscape.io/github/lorien/weblib/master
 
 .. image:: https://readthedocs.org/projects/weblib/badge/?version=latest
-    :target: https://docs.webliblib.org/en/latest/
+    :target: http://weblib.readthedocs.org/en/latest/
 
 
 Weblib provides tools to solve typical tasks in web scraping:
