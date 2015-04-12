@@ -16,6 +16,9 @@ Weblib
 .. image:: https://landscape.io/github/lorien/weblib/master/landscape.png
    :target: https://landscape.io/github/lorien/weblib/master
 
+.. image:: https://readthedocs.org/projects/weblib/badge/?version=latest
+    :target: https://docs.webliblib.org/en/latest/
+
 
 Set of tools to solve some repeatable tasks arasing in the process
 of web scraping (TODO: does that makes sense in English? :).
