@@ -75,13 +75,17 @@ def parse_html(html, encoding='utf-8'):
     return lxml.html.fromstring(html, parser=parser)
 
 
-def render_html(node, encoding='utf-8', make_unicode=False):
+def render_html(node, encoding=None, make_unicode=None):
     """
     Render Element node.
     """
     import lxml.html
 
-    if make_unicode or encoding == 'unicode':
+    if make_unicode is not None:
+        logging.error('Argument `make_unicode` of fuction `render_html` is '
+                      'deprecated. Used `encoding=None` to get unicode '
+                      'result.')
+    if make_unicode or encoding is None:
         return lxml.html.tostring(node, encoding='utf-8').decode('utf-8')
     else:
         return lxml.html.tostring(node, encoding=encoding)
@@ -170,8 +174,8 @@ def replace_rawnode_with_text(node, text):
 
 
 def clean_html(html, safe_attrs=('src', 'href'),
-               input_encoding='unicode',
-               output_encoding='unicode',
+               input_encoding=None,
+               output_encoding=None,
                **kwargs):
     """
     Fix HTML structure and remove non-allowed attributes from all tags.
@@ -179,10 +183,10 @@ def clean_html(html, safe_attrs=('src', 'href'),
 
     from lxml.html.clean import Cleaner
 
-    # Convert HTML to Unicode
-    html = render_html(parse_html(html, encoding=input_encoding), make_unicode=True)
+    tree = parse_html(html, encoding=input_encoding)
+    html = render_html(tree)
 
-    # Strip some shit with default lxml weblib
+    # Strip some trash with default lxml weblib
     cleaner = Cleaner(page_structure=True, **kwargs)
     html = cleaner.clean_html(html)
 

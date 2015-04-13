@@ -1,4 +1,4 @@
-runscript
+pytest
 coverage
 coveralls
 flake8

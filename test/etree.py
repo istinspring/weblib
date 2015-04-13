@@ -3,7 +3,8 @@ from unittest import TestCase
 from lxml.html import fromstring
 
 from weblib.etree import (get_node_text, find_node_number, render_html,
-                         drop_node, replace_node_with_text)
+                         drop_node, replace_node_with_text, clean_html,
+                         parse_html)
 
 HTML = u"""
 <head>
@@ -52,20 +53,23 @@ class EtreeTestCase(TestCase):
         html = u'<html><body><p>фыва</p></body></html>'
         html_utf = html.encode('utf-8')
         tree = fromstring(html)
-        self.assertEqual(html_utf, render_html(tree))
-        self.assertEqual(html, render_html(tree, make_unicode=True))
-        self.assertEqual(html.encode('cp1251'), render_html(tree, encoding='cp1251'))
+        self.assertEqual(html, render_html(tree))
+        self.assertEqual(html_utf, render_html(tree, encoding='utf-8'))
+        self.assertEqual(html.encode('cp1251'),
+                         render_html(tree, encoding='cp1251'))
 
     def test_drop_node(self):
         HTML = """
             <div><p>text<span>span</span><a href="#">link</a></p>tail</div>"""
         tree = fromstring(HTML)
         drop_node(tree, './/p')
-        self.assertTrue(render_html(tree) == b'<div>tail</div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div>tail</div>')
 
         tree = fromstring(HTML)
         drop_node(tree, './/span', keep_content=True)
-        self.assertTrue(render_html(tree) == b'<div><p>textspan<a href="#">link</a></p>tail</div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div><p>textspan<a href="#">link</a></p>tail</div>')
 
     def test_replace_node_with_text(self):
         # replace span
@@ -73,25 +77,52 @@ class EtreeTestCase(TestCase):
             <div><p><span>span</span><a href="#">link</a></p></div>"""
         tree = fromstring(HTML)
         replace_node_with_text(tree, './/span', 'FOO')
-        self.assertTrue(render_html(tree) == b'<div><p>FOO<a href="#">link</a></p></div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div><p>FOO<a href="#">link</a></p></div>')
 
         # replace span and keep its tail
         HTML = """
             <div><p><span>span</span>BAR<a href="#">link</a></p></div>"""
         tree = fromstring(HTML)
         replace_node_with_text(tree, './/span', 'FOO')
-        self.assertTrue(render_html(tree) == b'<div><p>FOOBAR<a href="#">link</a></p></div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div><p>FOOBAR<a href="#">link</a></p></div>')
 
         # replace p which is only child of parent div
         HTML = """
             <div><p><span>span</span>BAR<a href="#">link</a></p></div>"""
         tree = fromstring(HTML)
         replace_node_with_text(tree, './/p', 'FOO')
-        self.assertTrue(render_html(tree) == b'<div>FOO</div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div>FOO</div>')
 
         # replace span and keep tai of its preceeding sibling element
         HTML = """
             <div><p><strong>str</strong>!<span>span</span>BAR<a href="#">link</a></p></div>"""
         tree = fromstring(HTML)
         replace_node_with_text(tree, './/span', 'FOO')
-        self.assertTrue(render_html(tree) == b'<div><p><strong>str</strong>!FOOBAR<a href="#">link</a></p></div>')
+        self.assertEqual(render_html(tree, encoding='utf-8'),
+                         b'<div><p><strong>str</strong>'
+                         b'!FOOBAR<a href="#">link</a></p></div>')
+
+    def test_clean_html(self):
+        self.assertEqual(
+            u'<div><h1>test</h1></div>',
+            clean_html(u'<div><h1>test</h1></div>'))
+
+        self.assertEqual(
+            u'<h1>test</h1>',
+            clean_html(u'<h1>test</h1>'))
+
+        self.assertEqual(
+            u'<img src="foo">',
+            clean_html(u'<img src="foo" width="4">'))
+
+        self.assertEqual(
+            u'<div>T <img src="test_img.jpg"> T</div>',
+            clean_html(u'<div>T <img src="test_img.jpg" width="100%" '
+                       u'alt="Test image"> T</div>'))
+
+    def test_parse_html(self):
+        tree = parse_html('<div><h1>test</h1></div>')
+        self.assertEqual('test', tree.xpath('//h1')[0].text)

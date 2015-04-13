@@ -3,4 +3,3 @@ lxml
 six
 feedparser
 selenium
-pytils

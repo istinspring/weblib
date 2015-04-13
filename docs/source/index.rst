@@ -26,6 +26,14 @@ Installation
 
     pip install -U weblib
 
+
+Testing
+=======
+
+Install tox package: `pip install tox`
+Run the command: `tox`
+
+
 API
 ===
 
