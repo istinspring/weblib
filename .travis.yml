@@ -9,7 +9,7 @@ install:
   - python setup.py develop
 
 script:
-  - coverage run --source=tools -m runscript.cli test
+  - py.test --cov weblib
 
 after_success:
   - coveralls

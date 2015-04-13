@@ -5,12 +5,10 @@ flake_verbose:
 	flake8 weblib test --show-pep8
 
 test:
-	run test
+	py.test
 
 coverage:
-	coverage erase
-	coverage run --source=weblib -m runscript.cli test
-	coverage report -m
+	py.test --cov weblib --cov-report term-missing
 
 clean:
 	find -name '*.pyc' -delete
