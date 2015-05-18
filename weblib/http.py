@@ -2,15 +2,12 @@ try:
     import urllib.parse as urllib
 except ImportError:
     import urllib
-try:
-    from urlparse import urlsplit, urlunsplit
-except ImportError:
-    from urllib.parse import urlsplit, urlunsplit
+from six.moves.urllib.parse import urlsplit, urlunsplit, quote
 import re
 import logging
 
 from weblib.error import RuntimeConfigError
-from weblib.encoding import smart_str, smart_unicode, decode_pairs
+from weblib.encoding import make_str, make_unicode, decode_pairs
 
 from weblib.py3k_support import *
 
@@ -144,8 +141,8 @@ def normalize_unicode(value, charset='utf-8'):
         return value.encode(charset, 'ignore')
 
 
-def quote(data):
-    return urllib.quote_plus(smart_str(data))
+#def quote(data):
+#    return urllib.quote_plus(make_str(data))
 
 
 def normalize_url(url):
@@ -153,11 +150,15 @@ def normalize_url(url):
     # If whole URL is safe then there is no need to extract hostname part
     # and check if it is IDN
     if RE_NOT_SAFE_URL.search(url):
+        # hostname
         parts = list(urlsplit(url))
         if RE_NON_ASCII.search(parts[1]):
-            parts[1] = str(smart_unicode(parts[1]).encode('idna').decode())
-            url = urlunsplit(parts)
-            return url
+            parts[1] = str(make_unicode(parts[1]).encode('idna').decode())
+        # path
+        parts[2] = quote(make_str(parts[2]))
+        # query
+        parts[3] = quote(make_str(parts[3]), safe='&=')
+        return urlunsplit(parts)
     return url
 
 
