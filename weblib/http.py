@@ -163,7 +163,11 @@ def normalize_url(url):
         # Query
         # use make_str because python2's `quote` can't handle unicode
         data = make_str(parts[3]) if six.PY2 else parts[3]
-        parts[3] = quote(unquote(data), safe='&=')
+        pairs = [x.split('=', 1) for x in parts[3].split('&')]
+        pairs = [(quote(unquote(x), safe=''),
+                  quote(unquote(y), safe='')) for x, y in pairs]
+        result = '&'.join('='.join(x) for x in pairs)
+        parts[3] = result
 
         return urlunsplit(map(make_unicode, parts))
     return url

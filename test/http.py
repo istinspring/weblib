@@ -44,3 +44,13 @@ class HttpTestCase(TestCase):
         url = 'http://test.com/%9z%21'
         norm_url = 'http://test.com/%259z%21'
         self.assertEqual(norm_url, normalize_url(url))
+
+    def test_quoted_query_in_query(self):
+        url = ("https://graph.facebook.com/fql?q=SELECT%20url%20,total_count"
+               "%20FROM%20link_stat%20WHERE%20url%20in%20('http%3A%2F%2F"
+               "www.ksl.com%2F%3Fsid%3D34840696%26nid%3D148')")
+        norm_url = ("https://graph.facebook.com/fql?q=SELECT%20url%20%2C"
+                    "total_count%20FROM%20link_stat%20WHERE%20url%20in"
+                    "%20%28%27http%3A%2F%2Fwww.ksl.com%2F%3Fsid%3D"
+                    "34840696%26nid%3D148%27%29")
+        self.assertEqual(norm_url, normalize_url(url))
