@@ -2,9 +2,10 @@ try:
     import urllib.parse as urllib
 except ImportError:
     import urllib
-from six.moves.urllib.parse import urlsplit, urlunsplit, quote
+from six.moves.urllib.parse import urlsplit, urlunsplit, quote, unquote
 import re
 import logging
+import six
 
 from weblib.error import RuntimeConfigError
 from weblib.encoding import make_str, make_unicode, decode_pairs
@@ -141,24 +142,30 @@ def normalize_unicode(value, charset='utf-8'):
         return value.encode(charset, 'ignore')
 
 
-#def quote(data):
-#    return urllib.quote_plus(make_str(data))
-
-
 def normalize_url(url):
     # The idea is to quick check that URL contains only safe chars
     # If whole URL is safe then there is no need to extract hostname part
     # and check if it is IDN
+
+    # see details in RFC 2396
+    url = make_unicode(url)
     if RE_NOT_SAFE_URL.search(url):
-        # hostname
         parts = list(urlsplit(url))
+        # Scheme
+        pass
+        # Hostname
         if RE_NON_ASCII.search(parts[1]):
-            parts[1] = str(make_unicode(parts[1]).encode('idna').decode())
-        # path
-        parts[2] = quote(make_str(parts[2]))
-        # query
-        parts[3] = quote(make_str(parts[3]), safe='&=')
-        return urlunsplit(parts)
+            parts[1] = parts[1].encode('idna')
+        # Path
+        # use make_str because python2's `quote` can't handle unicode
+        data = make_str(parts[2]) if six.PY2 else parts[2]
+        parts[2] = quote(unquote(data), safe='/')
+        # Query
+        # use make_str because python2's `quote` can't handle unicode
+        data = make_str(parts[3]) if six.PY2 else parts[3]
+        parts[3] = quote(unquote(data), safe='&=')
+
+        return urlunsplit(map(make_unicode, parts))
     return url
 
 

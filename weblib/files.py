@@ -70,8 +70,7 @@ def hashed_path_details(url, ext='jpg', base_dir=None):
 
 
 def hashed_path(url, ext='jpg', base_dir=None):
-    dtl = hashed_path_details(url, ext=ext, base_dir=base_dir)
-    return dtl['full_path']
+    return hashed_path_details(url, ext=ext, base_dir=base_dir)['full_path']
 
 
 # Alias for back-ward compatibility
