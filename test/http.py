@@ -26,18 +26,18 @@ class HttpTestCase(TestCase):
 
     def test_normalize_url_with_mix_of_norm_and_unnorm(self):
         url = 'http://test.com/!?%21'
-        norm_url = 'http://test.com/%21?%21'
+        norm_url = 'http://test.com/%21?%21='
         self.assertEqual(norm_url, normalize_url(url))
 
     def test_normalize_url_normalized_ascii(self):
         url = 'http://test.com/%21?%21'
-        norm_url = 'http://test.com/%21?%21'
+        norm_url = 'http://test.com/%21?%21='
         self.assertEqual(norm_url, normalize_url(url))
 
 
     def test_normalize_normalized_non_ascii(self):
         url = 'http://www.film.ru/movies/a-z/%D0%9F?%d0%9f'
-        norm_url = 'http://www.film.ru/movies/a-z/%D0%9F?%D0%9F'
+        norm_url = 'http://www.film.ru/movies/a-z/%D0%9F?%D0%9F='
         self.assertEqual(norm_url, normalize_url(url))
 
     def test_normalize_non_quoted_percent(self):

@@ -162,8 +162,14 @@ def normalize_url(url):
         parts[2] = quote(unquote(data), safe='/')
         # Query
         # use make_str because python2's `quote` can't handle unicode
-        data = make_str(parts[3]) if six.PY2 else parts[3]
-        pairs = [x.split('=', 1) for x in parts[3].split('&')]
+        query = make_str(parts[3]) if six.PY2 else parts[3]
+        pairs = []
+        if len(query):
+            for item in query.split('&'):
+                if '=' in item:
+                    pairs.append(item.split('=', 1))
+                else:
+                    pairs.append((item, ''))
         pairs = [(quote(unquote(x), safe=''),
                   quote(unquote(y), safe='')) for x, y in pairs]
         result = '&'.join('='.join(x) for x in pairs)
