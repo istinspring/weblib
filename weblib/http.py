@@ -26,9 +26,21 @@ from weblib.py3k_support import *
 # is need to be imported then that can't be done due to the unknown magical influence
 import encodings.punycode
 
+# From RFC 3986
+# reserved    = gen-delims / sub-delims
+# gen-delims  = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+# sub-delims  = "!" / "$" / "&" / "'" / "(" / ")"
+#               / "*" / "+" / "," / ";" / "="
+# unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"
+GEN_DELIMS = r':/?#[]@'
+SUB_DELIMS = r'!$&\'()*+,;='
+RESERVED_CHARS = GEN_DELIMS + SUB_DELIMS + '%'
+UNRESERVED_CHARS = r'-._~a-zA-Z0-9'
+RE_NOT_SAFE_CHAR = re.compile(r'[^' +
+                              UNRESERVED_CHARS + 
+                              re.escape(RESERVED_CHARS) + ']')
+RE_NON_ALPHA_DIGIT_NETLOC = re.compile(r'[^-.:@a-zA-Z0-9]')
 logger = logging.getLogger('weblib.http')
-RE_NON_ASCII = re.compile(r'[^-.a-zA-Z0-9]')
-RE_NOT_SAFE_URL = re.compile(r'[^-.:/?&;#a-zA-Z0-9]')
 
 
 def urlencode(*args, **kwargs):
@@ -143,38 +155,21 @@ def normalize_unicode(value, charset='utf-8'):
 
 
 def normalize_url(url):
-    # The idea is to quick check that URL contains only safe chars
-    # If whole URL is safe then there is no need to extract hostname part
-    # and check if it is IDN
-
-    # see details in RFC 2396
+    # https://tools.ietf.org/html/rfc3986
     url = make_unicode(url)
-    if RE_NOT_SAFE_URL.search(url):
+    if RE_NOT_SAFE_CHAR.search(url):
         parts = list(urlsplit(url))
         # Scheme
         pass
-        # Hostname
-        if RE_NON_ASCII.search(parts[1]):
+        # Network location (user:pass@hostname)
+        if RE_NON_ALPHA_DIGIT_NETLOC.search(parts[1]):
             parts[1] = parts[1].encode('idna')
         # Path
-        # use make_str because python2's `quote` can't handle unicode
-        data = make_str(parts[2]) if six.PY2 else parts[2]
-        parts[2] = quote(unquote(data), safe='/')
+        parts[2] = quote(make_str(parts[2]), safe=RESERVED_CHARS)
         # Query
-        # use make_str because python2's `quote` can't handle unicode
-        query = make_str(parts[3]) if six.PY2 else parts[3]
-        pairs = []
-        if len(query):
-            for item in query.split('&'):
-                if '=' in item:
-                    pairs.append(item.split('=', 1))
-                else:
-                    pairs.append((item, ''))
-        pairs = [(quote(unquote(x), safe=''),
-                  quote(unquote(y), safe='')) for x, y in pairs]
-        result = '&'.join('='.join(x) for x in pairs)
-        parts[3] = result
-
+        parts[3] = quote(make_str(parts[3]), safe=RESERVED_CHARS)
+        # Fragment
+        parts[4] = quote(make_str(parts[4]), safe=RESERVED_CHARS)
         return urlunsplit(map(make_unicode, parts))
     return url
 
