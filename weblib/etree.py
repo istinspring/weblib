@@ -91,6 +91,12 @@ def render_html(node, encoding=None, make_unicode=None):
         return lxml.html.tostring(node, encoding=encoding)
 
 
+def render_node(node):
+    import lxml.html
+
+    return lxml.html.tostring(node, encoding='utf-8').decode('utf-8')
+
+
 def truncate_html(html, limit, encoding='utf-8'):
     """
     Truncate html data to specified length and then fix broken tags.
