@@ -5,13 +5,12 @@ from weblib.encoding import make_str, make_unicode
 
 class CSVDumper(object):
     def __init__(self, path, fields=None, write_header=True,
-                 quoting=csv.QUOTE_ALL, delimiter=','):
+                 quoting=csv.QUOTE_ALL, **kwargs):
         self.path = path
         self.fields = fields
         self.write_header = write_header
         self.file_handler = open(path, 'w')
-        self.writer = csv.writer(self.file_handler, quoting=quoting,
-                                 delimiter=delimiter)
+        self.writer = csv.writer(self.file_handler, quoting=quoting, **kwargs)
         if self.fields and self.write_header:
             self.writer.writerow(
                 self.normalize_unicode_row(self.normalize_row(self.fields)))
