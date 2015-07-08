@@ -2,6 +2,8 @@ from urllib.request import quote, unquote
 
 from weblib.error import RequestBanned, DataNotValid, HttpCodeZero
 
+ALLOWED_HTTP_CODES = (999, 200)
+
 
 def build_search_url(query):
     url_tpl = 'https://search.yahoo.com/search?p=%s&ei=UTF-8&nojs=1'
