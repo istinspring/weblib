@@ -11,7 +11,7 @@ setup(
     author = 'Gregory Petukhov',
     author_email = 'lorien@lorien.name',
     install_requires = ['pytils', 'six', 'lxml'],
-    packages = find_packages(),
+    packages = find_packages(exclude=['test']),
     license = "MIT",
     classifiers = (
         'Programming Language :: Python',
