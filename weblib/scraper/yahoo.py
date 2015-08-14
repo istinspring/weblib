@@ -14,26 +14,47 @@ def build_search_url(query):
 def check_integrity(grab):
     if grab.doc.code == 999:
         raise RequestBanned('Ban (HTTP code %d)' % grab.doc.code)
-    elif grab.doc.code == 0:
-        raise HttpCodeZero('HTTP code ZERO')
     elif grab.doc.code != 200:
         raise HttpCodeNotValid('Non-200 HTTP code: %d' % grab.doc.code)
-    elif not grab.doc('//li[@class="copyright" and '
-                      'contains(text(), "Yahoo")]').exists():
-        raise DataNotValid('Expected HTML element not found')
+
+
+def check_search_result_integrity(grab):
+    check_integrity(grab)
+    if not grab.doc('//input[@name="p"]').exists():
+        raise DataNotValid('Search query input not found')
+
+
+def check_cache_integrity(grab):
+    check_integrity(grab)
+    if not grab.doc('//div[@class="cacheContent"]').exists():
+        raise DataNotValid('Div[@class="cacheContent"] not found')
+
+
+def extract_encoded_url(url):
+    return unquote(url.split('/RU=')[1].split('/')[0])
 
 
 def parse_search_result(grab):
-    check_integrity(grab)
     res = []
-    for elem in grab.doc('//ol/li//div[@class="compTitle" and h3/a]'):
+    for elem in grab.doc('//ol/li//div[h3[@class="title"]/a]'):
         data = elem.select('h3/a/@href').text().strip()
         if '/RU=' in data:
-            url = unquote(data.split('/RU=')[1].split('/')[0])
+            url = extract_encoded_url(data)
         else:
             url = data
+
+        cache_url = None
+        for node in elem.select('..//a[@href]'):
+            node_url = node.attr('href')
+            if '/RU=' in node_url:
+                node_url = extract_encoded_url(node_url)
+            if '/srpcache' in node_url:
+                cache_url = node_url
+                break
+
         res.append({
             'url': url,
             'anchor': elem.select('h3/a').text().strip(),
+            'cache_url': cache_url,
         })
     return res

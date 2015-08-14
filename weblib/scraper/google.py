@@ -21,21 +21,23 @@ def build_search_url(query, host=None, country='us'):
 def check_integrity(grab):
     if grab.doc.code in (503, 403) or grab.doc('//input[@name="captcha"]').exists():
         raise RequestBanned('Captcha found')
-    elif not grab.doc('//div[@id="res"]').exists():
+
+
+def check_search_result_integrity(grab):
+    check_integrity(grab)
+    if not grab.doc('//div[@id="res"]').exists():
         raise DataNotValid('Content of response has unexpected format.')
 
 
 def check_cache_integrity(grab):
-    if grab.doc.code in (503, 403) or grab.doc('//input[@name="captcha"]').exists():
-        raise RequestBanned('Captcha found')
-    elif grab.doc.code == 404:
+    check_integrity(grab)
+    if grab.doc.code == 404:
         pass
     elif not grab.doc('//div[@id="google-cache-hdr"]').exists():
         raise DataNotValid('Google Cache Header not found')
 
 
 def parse_search_result(grab):
-    check_integrity(grab)
     res = []
     for elem in grab.doc('//h3[following-sibling::div[@class="s"]]'):
         res.append({
