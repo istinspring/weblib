@@ -7,10 +7,10 @@ Weblib
 .. image:: https://coveralls.io/repos/lorien/weblib/badge.svg?branch=master
     :target: https://coveralls.io/r/lorien/weblib?branch=master
 
-.. image:: https://pypip.in/download/weblib/badge.svg?period=month
+.. image:: https://img.shields.io/pypi/dm/weblib.svg
     :target: https://pypi.python.org/pypi/weblib
 
-.. image:: https://pypip.in/version/weblib/badge.svg
+.. image:: https://img.shields.io/pypi/v/weblib.svg
     :target: https://pypi.python.org/pypi/weblib
 
 .. image:: https://landscape.io/github/lorien/weblib/master/landscape.png
@@ -39,10 +39,16 @@ Installation
 
 Run:
 
-.. code:: shell
+.. code:: bash
 
     pip install -U weblib
 
+
+Documentation
+=============
+
+Docs are incomplete. Most docs are auto-generated from modules/methods docstrings.
+Check out docs here `<http://weblib.readthedocs.org/en/latest/>`_
 
 Dependencies
 ============
