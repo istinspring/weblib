@@ -13,9 +13,6 @@ Weblib
 .. image:: https://img.shields.io/pypi/v/weblib.svg
     :target: https://pypi.python.org/pypi/weblib
 
-.. image:: https://landscape.io/github/lorien/weblib/master/landscape.png
-   :target: https://landscape.io/github/lorien/weblib/master
-
 .. image:: https://readthedocs.org/projects/weblib/badge/?version=latest
     :target: http://weblib.readthedocs.org/en/latest/
 
