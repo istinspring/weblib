@@ -6,7 +6,7 @@ ALLOWED_HTTP_CODES = (999, 200)
 
 
 def build_search_url(query):
-    url_tpl = 'https://search.yahoo.com/search?p=%s&ei=UTF-8&nojs=1'
+    url_tpl = 'http://search.yahoo.com/search?p=%s&ei=UTF-8&nojs=1'
     url = url_tpl % quote(query)
     return url
 
@@ -36,7 +36,7 @@ def extract_encoded_url(url):
 
 def parse_search_result(grab):
     res = []
-    for elem in grab.doc('//ol/li//div[h3[@class="title"]/a]'):
+    for elem in grab.doc('//div[@id="web"]//ol/li//div[h3[@class="title"]/a]'):
         data = elem.select('h3/a/@href').text().strip()
         if '/RU=' in data:
             url = extract_encoded_url(data)
