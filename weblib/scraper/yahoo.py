@@ -1,6 +1,6 @@
 from urllib.request import quote, unquote
 
-from weblib.error import RequestBanned, DataNotValid, HttpCodeZero
+from weblib.error import RequestBanned, DataNotValid
 
 ALLOWED_HTTP_CODES = (999, 200)
 
