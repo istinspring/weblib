@@ -9,9 +9,14 @@ class HtmlTestCase(TestCase):
 
     def test_find_refresh_url(self):
         url = find_refresh_url("""
-            <meta http-equiv="refresh" content="5">
+            <h1>Valar Morghulis</h1>
         """)
         self.assertEqual(None, url)
+
+        url = find_refresh_url("""
+            <meta http-equiv="refresh" content="5">
+        """)
+        self.assertEqual('', url)
 
         url = find_refresh_url("""
             <meta http-equiv="refresh" content="5;URL='http://example.com/'">
