@@ -6,7 +6,7 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 
 setup(
     name = 'weblib',
-    version = '0.1.18',
+    version = '0.1.19',
     description = 'Set of tools for web scraping projects',
     author = 'Gregory Petukhov',
     author_email = 'lorien@lorien.name',
