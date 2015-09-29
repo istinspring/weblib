@@ -62,7 +62,7 @@ def decode_dict(values, encoding='utf-8'):
 
 def decode_pairs(pairs, encoding='utf-8'):
     def decode(value):
-        if isinstance(value, six.string_types):
+        if isinstance(value, six.binary_type):
             return smart_unicode(value, encoding)
         else:
             return value

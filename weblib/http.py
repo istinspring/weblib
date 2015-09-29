@@ -175,7 +175,7 @@ def normalize_url(url):
 
 
 def normalize_post_data(data, charset):
-    if isinstance(data, basestring):
+    if isinstance(data, (six.binary_type, six.text_type)):
         # bytes-string should be posted as-is
         # unicode should be converted into byte-string
         if isinstance(data, unicode):
