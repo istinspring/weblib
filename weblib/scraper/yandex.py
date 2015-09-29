@@ -24,6 +24,9 @@ def check_integrity(grab):
     if grab.doc.select('//img[contains(@src, "/captchaimg?")]').exists():
         raise RequestBanned('Ban (captcha)')
     elif grab.doc.code != 200:
+        #grab.doc.save('/tmp/x.html')
+        #print('NOT 200 CODE')
+        #import pdb; pdb.set_trace()
         raise DataNotValid('Non-200 HTTP code: %d' % grab.doc.code)
 
 
