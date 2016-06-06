@@ -8,6 +8,7 @@ from weblib.error import RuntimeConfigError, DataNotFound
 
 RE_NUMBER = re.compile(r'\d+')
 RE_NUMBER_WITH_SPACES = re.compile(r'\d[\s\d]*', re.U)
+RE_FLOAT_NUMBER = re.compile(r'[-+]?\d*[\.\,]\d+|\d+')
 RE_SPACE = re.compile(r'\s+', re.U)
 BOM_TOKEN = '\xef\xbb\xbf'
 
@@ -36,6 +37,26 @@ def find_number(text, ignore_spaces=False, make_int=True,
             val = drop_space(val)
         if make_int:
             val = int(val)
+        return val
+    else:
+        raise DataNotFound
+
+
+def find_float(text, make_float=True):
+    """
+    Find the float number in the `text`. Assume ```,``` or
+    ```.``` as possible delimeters.
+
+    :param text: unicode or byte-string text
+    :param make_float: convert result to float
+    :raises: :class:`DataNotFound` if float number was not found.
+    """
+
+    match = RE_FLOAT_NUMBER.search(text)
+    if match:
+        val = match.group(0)
+        if make_float:
+            val = float(val)
         return val
     else:
         raise DataNotFound
